@@ -1,0 +1,5 @@
+*.mp3
+ep*_transcript.txt
+__pycache__/
+*.pyc
+.DS_Store
