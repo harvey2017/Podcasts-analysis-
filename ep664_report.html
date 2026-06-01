@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>股癌 EP664 🐟 投資分析報告</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang TC", sans-serif; background: #0f1117; color: #e2e8f0; line-height: 1.7; }
+
+  .header { background: linear-gradient(135deg, #1a1f2e 0%, #16213e 100%); border-bottom: 1px solid #2d3748; padding: 40px 24px; text-align: center; }
+  .header h1 { font-size: 2rem; font-weight: 700; color: #f7fafc; }
+  .header .meta { margin-top: 8px; color: #718096; font-size: 0.9rem; display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .header .meta span { display: flex; align-items: center; gap: 4px; }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 32px 20px; }
+
+  .section { margin-bottom: 48px; }
+  .section-title { font-size: 1.1rem; font-weight: 700; color: #90cdf4; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 1px solid #2d3748; display: flex; align-items: center; gap: 8px; }
+
+  /* Summary */
+  .summary-box { background: #1a202c; border: 1px solid #2d3748; border-radius: 12px; padding: 24px; font-size: 0.95rem; color: #cbd5e0; white-space: pre-wrap; }
+
+  /* News cards */
+  .news-grid { display: flex; flex-direction: column; gap: 16px; }
+  .news-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; }
+  .news-card-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+  .news-card h3 { font-size: 1rem; font-weight: 600; color: #f7fafc; flex: 1; }
+  .news-card .category { font-size: 0.75rem; background: #2d3748; color: #90cdf4; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+  .news-card .source-ref { font-size: 0.75rem; color: #4a5568; margin-bottom: 8px; }
+  .news-card .event { font-size: 0.9rem; color: #a0aec0; margin-bottom: 12px; }
+  .news-card .opinion { font-size: 0.875rem; background: #2d3748; border-left: 3px solid #4299e1; padding: 10px 14px; border-radius: 0 8px 8px 0; color: #cbd5e0; }
+
+  /* Host disclosure */
+  .disclosure-list { display: flex; flex-direction: column; gap: 12px; }
+  .disclosure-item { background: #1a202c; border: 1px solid #744210; border-radius: 10px; padding: 16px; }
+  .disclosure-item .action-badge { display: inline-block; font-size: 0.75rem; font-weight: 600; padding: 2px 10px; border-radius: 20px; margin-bottom: 8px; }
+  .action-持有 { background: #276749; color: #9ae6b4; }
+  .action-加碼 { background: #285e61; color: #81e6d9; }
+  .action-不動 { background: #2a4365; color: #90cdf4; }
+  .action-業績 { background: #44337a; color: #d6bcfa; }
+  .action-投資 { background: #702459; color: #fbb6ce; }
+  .disclosure-item .asset { font-weight: 600; color: #fbd38d; margin-bottom: 6px; }
+  .disclosure-item .quote { font-size: 0.875rem; color: #a0aec0; font-style: italic; background: #171923; padding: 8px 12px; border-radius: 6px; margin-bottom: 6px; }
+  .disclosure-item .status { font-size: 0.8rem; color: #718096; }
+
+  /* Stock analysis */
+  .stock-grid { display: flex; flex-direction: column; gap: 16px; }
+  .stock-card { background: #1a202c; border: 1px solid #2d3748; border-radius: 12px; padding: 20px; }
+  .stock-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
+  .stock-card h3 { font-size: 1rem; font-weight: 600; color: #f7fafc; flex: 1; }
+  .sentiment { font-size: 0.75rem; font-weight: 700; padding: 3px 12px; border-radius: 20px; }
+  .bullish { background: #276749; color: #9ae6b4; }
+  .watchful { background: #744210; color: #fbd38d; }
+  .neutral { background: #2d3748; color: #a0aec0; }
+  .bearish { background: #742a2a; color: #fc8181; }
+  .owned-badge { font-size: 0.7rem; background: #553c9a; color: #d6bcfa; padding: 2px 8px; border-radius: 20px; }
+  .tickers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .ticker { font-size: 0.75rem; background: #171923; border: 1px solid #4a5568; color: #90cdf4; padding: 2px 8px; border-radius: 4px; font-family: monospace; }
+  .risk-box { font-size: 0.8rem; color: #fc8181; background: #1a0a0a; border-left: 3px solid #e53e3e; padding: 8px 12px; border-radius: 0 6px 6px 0; margin-bottom: 10px; }
+  .analysis { font-size: 0.9rem; color: #a0aec0; }
+
+  /* Q&A */
+  .qa-list { display: flex; flex-direction: column; gap: 20px; }
+  .qa-item { background: #1a202c; border: 1px solid #2d3748; border-radius: 12px; overflow: hidden; }
+  .qa-question { background: #171923; padding: 16px 20px; }
+  .qa-sender { font-size: 0.8rem; color: #4299e1; font-weight: 600; margin-bottom: 4px; }
+  .qa-q { font-size: 0.95rem; color: #e2e8f0; }
+  .qa-answer { padding: 16px 20px; }
+  .qa-points { list-style: none; margin-bottom: 14px; }
+  .qa-points li { font-size: 0.9rem; color: #a0aec0; padding: 4px 0 4px 16px; position: relative; }
+  .qa-points li::before { content: "›"; position: absolute; left: 0; color: #4299e1; font-weight: 700; }
+  .qa-takeaway { font-size: 0.875rem; background: #2d3748; border-left: 3px solid #f6e05e; padding: 10px 14px; border-radius: 0 8px 8px 0; color: #fefcbf; font-weight: 500; }
+  .qa-takeaway::before { content: "💡 "; }
+
+  footer { text-align: center; padding: 32px; color: #4a5568; font-size: 0.8rem; border-top: 1px solid #2d3748; margin-top: 48px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>股癌 Gooaye EP664 🐟</h1>
+  <div class="meta">
+    <span>📅 2026-05-23</span>
+    <span>🎙️ 謝孟恭</span>
+    <span>⏱️ 約 50 分鐘</span>
+    <span>📊 AI 高密度機櫃換代：被動元件迎來長線大潮</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Summary -->
+  <div class="section">
+    <div class="section-title">📋 整集摘要</div>
+    <div class="summary-box">本集開場由知識衛星企業財稅必修課贊助，主持人孟公隨即分享過去一週的操盤實況：手中絕大多數部位都已進入處置股狀態，部分標的甚至遭關20分鐘撮合，完全動彈不得。面對被動元件跌停，孟公不但沒有賣出，反而趁恐慌加碼，結果5月行情再度刷新4月新高，超乎市場預期。他也在Facebook上分享旗下遊戲公司「香男資本」投資的台灣遊戲《紅眼路比》確定7月正式上線，並鼓勵聽眾到Steam加入願望清單。
+
+接著進入長達近15分鐘的紅酒分享。孟公說入坑紅酒的動機來自好奇心，想知道為何那些「此生必喝」的名酒如此被吹捧。他親自去供最頂級的酒莊，包括波爾多、勃根地，並有重大發現：羅曼尼康帝 Grand Cru 零售價約70至100萬台幣一瓶，但在德國某些特約餐廳（如 Royal Grill）竟能以約80歐元（折合約3萬台幣）享用，只是酒瓶不能帶走，因為酒瓶屬於酒莊財產。他推薦 StarWineList 網站尋找這類餐廳，以及 WineSearcher 網站查詢零售行情。紅酒指數2020年見頂後連跌3年，唯一例外是樂華（Leroy），因莊主嚴格控貨價格穩住。孟公個人偏好口味彈性，認為盲飲比高下並不客觀。
+
+新聞分析首先聚焦 Anthropic 宣布轉虧為盈。孟公認為這是本週最重要消息，直接打臉AI泡沫論——連最燒錢的模型商都能獲利，代表市場對AI硬體的投資只會更大。同時，SpaceX 的 Colossus-1 算力出租方案顯示投資回收期僅需1至2年，等同印鈔機，給硬體相關股票打下強心針。
+
+第二個重大新聞是 Google 與 Blackstone 合作推出 TPU Cluster 雲端服務，以第三方 NeoCloud 形式繞開客戶資料隱私顧慮，直面競爭 NVIDIA、AMD、Intel。孟公透露目前可見的 TPU 自用與外銷比例已達3比1，遠超市場預期。這消息短期可能壓制部分 NVIDIA NeoCloud 估值，但對 Google 供應鏈是重大利多。
+
+被動元件是本集核心主題。台灣某高壓 MLCC 廠商公告「尚未漲價、不排除跟進」，隔天照樣漲停。全線噴射：MLCC、鋁電容、電感、電阻、通路商齊漲停。47μF MLCC（春田、SENCO 供貨告急）、鋁電容中的牛角電容（Snap-in）與 SPCAP，全球廠商合計產能仍追不上需求。中國江海股份飆漲，日本 Chemical 廠也大漲超過10%，中國研調機構正邀請台灣業內人士開專家會議研究現況。
+
+根本邏輯：AI 伺服器換代走向高密度機櫃，獨立電力控制機櫃（Power Rack）成為瓶頸，功耗倍增導致高壓 MLCC、鋁電容、功率半導體用量激增。NVIDIA 更採「產能包場」策略，提前以溢價鎖定光通訊雷射產能，意圖讓對手買不到原料，孟公預測此策略將蔓延至更多環節。
+
+操作策略上，此階段全面噴射時技術面重要性高於基本面，直接看五日線、十日線，等回檔後再用基本面區分真正缺料標的（高壓AI MLCC、牛角電容）與跟風漲標的（消費級被動元件）。孟公自己的被動元件部位在處置股狀態下無法動彈，選擇不動、任其飄盪。</div>
+  </div>
+
+  <!-- News -->
+  <div class="section">
+    <div class="section-title">📰 今日新聞整理</div>
+    <div class="news-grid">
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>贊助：知識衛星企業財稅必修課</h3>
+          <span class="category">廣告贊助</span>
+        </div>
+        <div class="source-ref">🕐 0:00 – 2:00</div>
+        <div class="event">本集由知識衛星企業財稅必修課贊助，課程以 FOREV 法稅系統設計，分五大模組涵蓋公司設立、發票帳務、合約股東往來、風險控管及跨國稅務規劃。適合中小企業主、創業者、財務人資。優惠代碼 <strong>gooaye350</strong>，限時折扣超過45%。</div>
+        <div class="opinion">純廣告段落，主持人強調課程實用性，著重讓老闆「聽得懂財稅語言、看得出公司風險」，非投資觀點。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>主持人操盤實況：多檔持股進入處置股，5月行情創新高</h3>
+          <span class="category">主持人持倉</span>
+        </div>
+        <div class="source-ref">🕐 2:00 – 6:00</div>
+        <div class="event">過去一週孟公手中多數部位進入處置股，部分標的遭關20分鐘撮合，被動元件甚至出現跌停。他選擇不賣反而加碼，結果市場反彈，5月行情超越4月新高。《紅眼路比》遊戲確定7月正式上線，已在香男資本臉書粉專公告。</div>
+        <div class="opinion">主持人以「賽道」邏輯面對處置股困境，加碼而非停損。5月 > 4月的表現驗證其被動元件多頭判斷。《紅眼路比》是其個人投資的台灣遊戲，7月上線為明確催化劑。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>紅酒 lifehack：頂級名莊酒在特約餐廳可半價享用</h3>
+          <span class="category">生活分享</span>
+        </div>
+        <div class="source-ref">🕐 6:00 – 20:00</div>
+        <div class="event">羅曼尼康帝 Grand Cru 零售價70–100萬台幣，但德國 Royal Grill 餐廳標價約 <strong>80歐元（≈3萬台幣）</strong>，條件是酒瓶不能帶走。推薦 StarWineList 網站搜尋此類餐廳，WineSearcher 查零售行情。紅酒指數2020年見頂後連跌3年，樂華（Leroy）因嚴格控貨未受影響。</div>
+        <div class="opinion">非投資主題，但孟公以此類比股票心態：就算事後看起來是高點，當下做出的決策才是最重要的，不要過度糾結時機。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>Anthropic 宣布轉虧為盈</h3>
+          <span class="category">AI產業／美股</span>
+        </div>
+        <div class="source-ref">🕐 20:00 – 25:00</div>
+        <div class="event">Anthropic 宣布轉獲利，成全球矚目里程碑。孟公認為雖有人質疑數字為上市美化，但以其知名度紙包不住火。同期 SpaceX Colossus-1 算力出租顯示約 <strong>1至2年可回本</strong>，佐證AI硬體投資的高報酬率。</div>
+        <div class="opinion">①打臉AI泡沫論；②硬體投資只會更大；③算力出租市場如印鈔機，供不應求狀態短期不變。直接利好AI硬體相關股票。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>Google 聯手 Blackstone 推出 TPU Cluster 雲端服務</h3>
+          <span class="category">AI產業／美股</span>
+        </div>
+        <div class="source-ref">🕐 25:00 – 35:00</div>
+        <div class="event">Google 與 Blackstone 合作以第三方 NeoCloud 形式推出 TPU Cluster，繞開客戶資料隱私顧慮，直面競爭 NVIDIA、AMD、Intel、其他 ASIC 業者。目前 TPU 自用與外銷比例達 <strong>3比1</strong>，成長遠超預期。孟公早先曾猜測 TPU 外銷給 Anthropic，當時市場不信，現已成共識。</div>
+        <div class="opinion">短期可能壓制部分 NVIDIA NeoCloud 估值；Google 供應鏈重大利多。TPU 外銷3比1代表晶圓代工產能爭奪將更激烈，誰搶到更多產能誰就能複製 Colossus-1 獲利模式。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>被動元件全線漲停：47μF、高壓MLCC、鋁電容、電感、電阻齊噴</h3>
+          <span class="category">台股／被動元件</span>
+        </div>
+        <div class="source-ref">🕐 35:00 – 45:00</div>
+        <div class="event">台灣某高壓 MLCC 廠商公告「尚未漲價，不排除跟進」，隔天照樣漲停。47μF MLCC（春田、SENCO 供貨告急）、高壓 MLCC、鋁電容（牛角/Snap-in、SPCAP）全球產能追不上需求。中國江海股份飆漲，日本 Chemical 廠禮拜五大漲超10%。中國研調機構正邀請台灣業內開專家會議。</div>
+        <div class="opinion">根本邏輯：AI 伺服器高密度機櫃 → Power Rack 功耗倍增 → 高壓 MLCC、鋁電容、功率半導體用量激增。噴射階段看技術面，回檔後再用基本面篩選真缺料 vs 跟風漲標的。</div>
+      </div>
+
+      <div class="news-card">
+        <div class="news-card-header">
+          <h3>NVIDIA「產能包場」策略蔓延：從光通訊雷射到更多關鍵零組件</h3>
+          <span class="category">AI產業／供應鏈</span>
+        </div>
+        <div class="source-ref">🕐 35:00 – 40:00</div>
+        <div class="event">NVIDIA 已預先以加價方式包下光通訊雷射產能，超過自身實際用量，目的是讓對手買不到。孟公預測此策略將蔓延至更多關鍵原料與生產環節，包括電力組件、被動元件。</div>
+        <div class="opinion">「戰略物資化」趨勢：HBM記憶體 → 晶圓代工 → 光通訊雷射，被動元件與功率元件可能是下一波目標。先搶到關鍵原料者即可把對手擠出市場。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Host Disclosure -->
+  <div class="section">
+    <div class="section-title">⭐ 主持人持倉揭露</div>
+    <div class="disclosure-list">
+
+      <div class="disclosure-item">
+        <span class="action-badge action-持有">持有中</span>
+        <div class="asset">被動元件（多檔，未指名）</div>
+        <div class="quote">「手上的被動元件在過去的一陣子甚至有出現跌停那跌停你也沒有辦法賣嘛你也不會想賣啦甚至就反而變成是加碼了」</div>
+        <div class="status">狀態：多檔進入處置股，部分遭關20分鐘撮合</div>
+      </div>
+
+      <div class="disclosure-item">
+        <span class="action-badge action-加碼">跌停加碼</span>
+        <div class="asset">被動元件（跌停時趁恐慌加碼）</div>
+        <div class="quote">「我知道大家恐慌亂燒我就加碼然後加碼加一加又再繼續噴出去了」</div>
+        <div class="status">狀態：恐慌期加碼後隨即反彈創新高</div>
+      </div>
+
+      <div class="disclosure-item">
+        <span class="action-badge action-不動">持倉不動</span>
+        <div class="asset">被動元件（處置股中靜待）</div>
+        <div class="quote">「我就放我就放那我就看後面會怎麼樣了不起你就殺回來一點你殺多一點我再去看都沒有關係」</div>
+        <div class="status">狀態：因處置制度無法自由交易，選擇繼續持有</div>
+      </div>
+
+      <div class="disclosure-item">
+        <span class="action-badge action-業績">業績揭露</span>
+        <div class="asset">個人整體帳戶</div>
+        <div class="quote">「5月又刷了4月的新高又比這個4月更加的誇張」</div>
+        <div class="status">狀態：5月帳戶績效超越4月新高</div>
+      </div>
+
+      <div class="disclosure-item">
+        <span class="action-badge action-投資">已投資</span>
+        <div class="asset">《紅眼路比》台灣遊戲（香男資本）</div>
+        <div class="quote">「這是我們香男資本投資的第一款就是有對外公佈並且要準備上市的遊戲希望它可以銷售長紅」</div>
+        <div class="status">狀態：確定7月於 Steam 正式上線</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Stock Analysis -->
+  <div class="section">
+    <div class="section-title">📊 主題／標的觀點表</div>
+    <div class="stock-grid">
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>被動元件族群（MLCC、鋁電容、電感、電阻）</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+          <span class="owned-badge">主持人持有</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">2327 國巨</span><span class="ticker">2492 華新科</span><span class="ticker">3026 禾伸堂</span><span class="ticker">江海股份 A股</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：消費級被動元件可能是恐慌備貨而非真實需求，回檔後可能不如AI級強；處置制度導致流動性不足。</div>
+        <div class="analysis">全線噴射，台灣、中國、日本廠商齊漲停。根本驅動力是AI伺服器換代走向高密度機櫃，PowerRack功耗倍增，高壓MLCC、鋁電容需求激增。噴射階段以技術面為主，五日線十日線觀察，回檔後再做基本面篩選，聚焦真正缺料的高壓AI級MLCC與牛角電容，而非跟風的消費級元件。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>高壓 MLCC（47μF、AI 伺服器用）</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+          <span class="owned-badge">主持人持有</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">春田（47μF）</span><span class="ticker">SENCO（47μF）</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：量產主潮預計下半年與GB300重疊，空窗期股價波動不確定。</div>
+        <div class="analysis">47μF 是目前最缺的規格，春田與 SENCO 供貨告急。孟公認定為「第一階受惠」標的，供需失衡最明確，需求可見度最高，為其首選聚焦方向。AI伺服器功耗持續提升的趨勢下，這類高壓元件的定價權最為清晰。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>鋁電容（牛角電容 Snap-in、SPCAP）</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">江海股份 A股</span><span class="ticker">台灣相關廠商（未點名）</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：市場對鋁電容了解度不如MLCC，股價動能可能落後；故事較難懂。</div>
+        <div class="analysis">孟公認為鋁電容是「比較難懂的故事」，被MLCC搶去光環，但供需失衡程度相當嚴峻，全球廠商合計產能仍追不上需求。牛角電容（Snap-in）在AI機櫃中大量使用。中國江海股份已噴漲，台灣廠商雖有時落後，最終終究補漲。通路商法說會也有提及 Snapping 需求異常龐大。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>功率半導體／功率元件</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">未點名具體公司</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：市場注意力集中在NVIDIA核心板卡，PowerRack「隔壁機櫃」概念尚未被充分定價。</div>
+        <div class="analysis">AI伺服器功耗提升導致獨立電力控制機櫃（Power Rack）成為瓶頸，其中高壓電容、控制元件是「隔壁機櫃裡的機會」，目前市場尚未充分關注。孟公認為這是繼被動元件之後下一個值得挖掘的方向，VR換代後功率元件用量將大增。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>Google（TPU 供應鏈）</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">GOOGL</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：TPU外銷競爭加劇，市場份額能否真正從NVIDIA手中搶奪尚需觀察。</div>
+        <div class="analysis">Google 聯手 Blackstone 以第三方 NeoCloud 形式推出 TPU Cluster，TPU 自用與外銷比例3比1，遠超市場預期。孟公認為這是Google的重大策略勝利，外銷比例快速拉升代表其供應鏈（晶圓代工、板卡、周邊）將大幅受惠，是他認定的正面消息。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>NVIDIA 及其 NeoCloud 生態系</h3>
+          <span class="sentiment watchful">◉ Watchful</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">NVDA</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：Google TPU 外銷擴張是直接競爭者；晶圓代工產能限制是增長天花板。</div>
+        <div class="analysis">孟公認為 NVIDIA 本身增長邏輯沒有改變，但 Google TPU 快速擴張外銷會對部分 NeoCloud 估值產生壓制，市場多了一個強力競爭者。NVIDIA 透過包場光通訊雷射產能的策略非常高明，但此招是否能持續拉開差距尚待觀察。整體仍看好，但短期估值承壓。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>漢唐等建廠族群</h3>
+          <span class="sentiment watchful">◉ Watchful</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">漢唐（代碼未提及）</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：市場資金輪動，建廠股有時被忽略，即便基本面很好。</div>
+        <div class="analysis">聽眾提問中間接提及漢唐等建廠股，孟公回應：只要公司持續良好營運，股價終究會還公道，時間問題。他不建議因等待而梭哈，強調資產配置，分散部位才能不焦慮。漢唐在錄音前一個禮拜五已有所表現。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>HBM 記憶體／記憶體族群</h3>
+          <span class="sentiment neutral">— Neutral</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">未點名具體公司</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：HBM高知名度但實際毛利未必最高；Legacy DRAM反而出現價格超預期狀況。</div>
+        <div class="analysis">孟公提到反常現象：市場普遍認為HBM最好，但DDR4、DDR3等Legacy品項的毛利有時跑贏HBM。他用此案例說明被動元件中也可能存在類似劇本，不應僅看市場最炒的品項，要回頭看哪個真正缺料。這是判斷「雜魚」與「真受惠」的核心邏輯。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>Anthropic（模型商，私有）</h3>
+          <span class="sentiment bullish">▲ Bullish</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">私有未上市</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：部分市場人士質疑財務美化（為上市做準備）。</div>
+        <div class="analysis">孟公認為Anthropic轉獲利是本週最重要新聞，直接反駁AI泡沫論。以Anthropic的知名度，若數字嚴重造假必然被爆，整體可信。此消息的投資含義主要是利多硬體相關公司，代表模型商願意持續大量採購算力，不會踩煞車。</div>
+      </div>
+
+      <div class="stock-card">
+        <div class="stock-card-header">
+          <h3>台灣房地產</h3>
+          <span class="sentiment bearish">▼ Bearish</span>
+        </div>
+        <div class="tickers">
+          <span class="ticker">N/A</span>
+        </div>
+        <div class="risk-box">⚠️ 風險：政府若再度放水，房市可能重新啟動。</div>
+        <div class="analysis">孟公確認台灣房市目前冷卻，就連林口這種遷入人口眾多的地區，房仲朋友也說很辛苦。主因是資金都去炒股，加上銀行房貸額度吃緊（帳上沒有10萬現金就貸不下來）。他預估要等政府再次大放水才會重啟。個人選房邏輯：建商聲譽 > 採光 > 坪數 > 地點，喜歡頂樓。</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Q&A -->
+  <div class="section">
+    <div class="section-title">💬 Q&amp;A 心法</div>
+    <div class="qa-list">
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">志明</div>
+          <div class="qa-q">快問快答：Karina 和 Faker 向你告白，老公選誰？順帶抱怨處置制度是個笑話。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公說選 Lisa（不是 Karina），直接跳過這種白癡問題。</li>
+            <li>處置制度：以前很不爽，但在朋友調教下學會玩法後，現在喜歡了。引用非洲迷因：corruption is bad only when I'm not in it。</li>
+            <li>提到聯發科和建策都有處置，許多國際法人打電話去幹交易所，可能導致後續調整機制。</li>
+          </ul>
+          <div class="qa-takeaway">處置制度好不好，取決於你有沒有在裡面賺到錢。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">江江（代老公何美陳五）</div>
+          <div class="qa-q">老公5月23號生日，希望孟公祝賀。老公想打瘦瘦針，說孟公也有打，希望有效。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>祝何美陳五生日快樂。</li>
+            <li>瘦瘦針在他自己身上發揮了很大效用，但身邊也有些朋友無效。</li>
+            <li>強烈建議配合醫師診斷，千萬不要自己去買來路不明的自己打。</li>
+          </ul>
+          <div class="qa-takeaway">瘦瘦針需配合醫師指導使用，切勿自行施打來路不明產品。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">PVENRT</div>
+          <div class="qa-q">PhysicalAI 未來是否會讓多數人找不到工作？AI 與人的比例是否會變成1比0.5甚至更低？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公觀點與提問者相反，引用 Jensen Huang 與 Jeff Bezos：AI 是 elevate（提升）而非 replace（取代）。</li>
+            <li>電腦出現時大家也說人要失業，結果反而讓工作量更大、工時更長。</li>
+            <li>孟公自身經驗：AI 大幅提升效率、擴大防守範圍，但工時反而上升而非下降。</li>
+            <li>看好 PhysicalAI，機器人取代辛苦的 warehouse 工作，但這些人力會流向其他崗位。</li>
+            <li>不太可能出現「全民皆富不用工作」的烏托邦，那是在做夢。</li>
+          </ul>
+          <div class="qa-takeaway">AI 讓你能做的事情更多，你的工作量也會更大，不是讓你不用工作——目前所有實際用AI的人都有類似心得。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">奈米小谷迷</div>
+          <div class="qa-q">做傳產水電工程，每月銅價、PPC報價一直漲，自己吸收利潤快撐不住了。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公認同原物料漲價嚴峻，戰爭 disruption 是原因之一。</li>
+            <li>CSP 不計代價採購，一個 CSP 的採購量等同1萬個消費者。</li>
+            <li>這種需求強度使原物料持續上漲機率很高，直到AI大規模投資放棄前都可能維持高檔。</li>
+            <li>該漲給客人的就漲，大家都漲就不是問題，比的是誰先開第一槍。</li>
+          </ul>
+          <div class="qa-takeaway">當整個產業鏈都在漲價，個別廠商也應合理轉嫁；誰先開槍誰就有先機，吊住客人在這波行情不太成立。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">信仰人1</div>
+          <div class="qa-q">房市好像有點冷，均價在降，是不是錢都跑去股市了？買房要注意什麼？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>確認房市確實冷，就連林口房仲朋友也說很辛苦。</li>
+            <li>原因：錢都跑去股市；銀行房貸吃緊，帳上沒有10萬以上現金通常貸不下來，非常矛盾。</li>
+            <li>預測要等政府再度大放水才會重啟房市。</li>
+            <li>選房邏輯：①查建商（甚至營造商）；②喜歡西曬採光；③坪數 > 地點（不追捷運溢價）；④喜歡頂樓（不用擔心樓上噪音）；⑤不要被網路輿論洗腦。</li>
+          </ul>
+          <div class="qa-takeaway">知道自己要什麼比跟著網路輿論走更重要；流動性差、西曬、頂樓這些「市場認為的雷」對孟公反而是加分項。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">Uncle 碩</div>
+          <div class="qa-q">市場全面大噴，但最後的大設備、猛猛的營收不是都會在某些公司發生嗎？為什麼感覺被遺忘？（暗指漢唐等建廠股）</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公認出對方應該是漢唐股東，說漢唐禮拜五已漲了。</li>
+            <li>只要公司持續良好營運，股價終究會還公道，只是有時候要等很久。</li>
+            <li>如果等不及，就去配置一點別的東西；梭哈導致沒參與到其他行情才會受不了。</li>
+          </ul>
+          <div class="qa-takeaway">公司好，股價終究還公道；等不及的根本原因通常是倉位過重，解法是資產配置而非換股。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">輪憲區氣憤仔</div>
+          <div class="qa-q">市場接近瘋狂、萬股齊發，旁邊的人開始講「跌一點就崩盤」，很煩。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>多頭市場久了就會出現「跌1%叫崩盤、跌3%叫大逃殺」的現象，稍微忍耐。</li>
+            <li>這些人在真正大回檔時就會消失（被割），之後換來耳根清淨。</li>
+            <li>孟公自己有時也想按一聲，但盡量忍住：「你在說我好舒服的時候，你就準備要痛哭了。」</li>
+          </ul>
+          <div class="qa-takeaway">多頭市場的雜訊（噴嚏恐慌客）是週期性現象，大回檔後自然淘汰，老手忍住不跟著起哄。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">謝蒙宮海地</div>
+          <div class="qa-q">孟公平常用什麼 Prompt 整理每日資訊？爬下來的資訊怎麼篩選哪些有用哪些是畫夢？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公表示這個留言跟上一集某個留言幾乎一模一樣，選擇跳過。</li>
+          </ul>
+          <div class="qa-takeaway">（主持人本集跳過此題，因與前集重複）</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">東港鮪魚大富</div>
+          <div class="qa-q">幫老婆阿秋慶生（5月26日）。問：孟公當初有過「既期待孩子上學又不捨每天少幾小時黏在一起」的複雜心情嗎？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>確實會發生，老婆哭，自己雖然沒哭但下課一定親自去接。</li>
+            <li>會給孩子驚喜：趁才藝課可以不上時提早接走，讓孩子被同學羨慕。</li>
+            <li>保持一點「可愛的距離」是健康的，一開始難受，後來習慣這種節奏。</li>
+            <li>禮拜六禮拜天孩子整天在家鬧的時候，反而會想「應該多包一點才藝課」。</li>
+          </ul>
+          <div class="qa-takeaway">孩子上學的距離感一開始難受，但最終會發現「上課期間＋回家陪玩」的平衡狀態是最美好的。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">大豬</div>
+          <div class="qa-q">提前祝孟公生日快樂，怕當天留不到。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公說自己對生日沒有在慶祝，自己也常忘記自己的生日。</li>
+            <li>非常感謝聽眾記得，光這樣就覺得非常開心。</li>
+          </ul>
+          <div class="qa-takeaway">孟公對個人生日低調，但感謝聽眾的心意。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">Robert 槓桿</div>
+          <div class="qa-q">有個3月入場的朋友每天吹牛靠槓桿賺多少，我介紹他去玩選擇權，現在他安靜多了。可以請孟公分享好玩遊戲嗎？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公笑說這位兄弟是直接幫朋友「送終」。</li>
+            <li>選擇權本身是好工具，但死亡率高，要小心。</li>
+            <li>推薦好玩遊戲：《紅眼路比》，7月在 Steam 上線，請去加入願望清單，支持台灣本土遊戲。</li>
+          </ul>
+          <div class="qa-takeaway">選擇權是有效工具，但死亡率偏高；需充分了解再進場。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">君君君媽咪</div>
+          <div class="qa-q">幫媽咪（左營區骨海女神）留言祝生日，請孟公說「阿牧我們永遠愛你」。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>感覺是個非常和樂融融的家庭，整天都在幫媽媽搶留言。</li>
+            <li>祝這位資深美少女身體健康快樂平安。</li>
+          </ul>
+          <div class="qa-takeaway">（生日祝賀段落，無投資內容）</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">Vendor Dong（半導體設備商從業人員）</div>
+          <div class="qa-q">泄密案後客戶為了自保改成電話溝通，不給截圖，導致技術資料不完整只能生出垃圾，開會卻被釘牆上。這風氣是否會影響產業發展速度？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>保密需求後面只會越來越嚴，業界「寧可錯殺也不要錯放」。</li>
+            <li>他自己這邊也是：以前存一些專家會議圖表，現在連存都不存了。</li>
+            <li>保護資料來源比資料本身更重要——他能拿到很多新資源，正是因為從未賣過聽眾。</li>
+            <li>給提問者的建議：自己工作辛苦一點也好，比惹上麻煩吃官司要好得多，任何事情都可大可小。</li>
+          </ul>
+          <div class="qa-takeaway">半導體保密文化持續收緊，保護資訊來源的信譽遠比一次的方便更有價值；寧可多吃苦也不要冒法律風險。</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">Soxen</div>
+          <div class="qa-q">（業配回饋）孟公推薦的枕頭超好睡，到貨後像打麻醉一樣秒睡，唯一困擾是手機忘了充電。</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points"><li>孟公說枕頭確實超好睡，祝可以每天好眠。</li></ul>
+          <div class="qa-takeaway">（廣告業配回饋段落，無投資內容）</div>
+        </div>
+      </div>
+
+      <div class="qa-item">
+        <div class="qa-question">
+          <div class="qa-sender">第一次留言（測試帳號）</div>
+          <div class="qa-q">跟老婆對幼稚園選擇有分歧，我說沒抽到就請育嬰假自己帶，老婆說給我帶不如送去看不上眼的幼兒園。請問這樣的婚姻還需要繼續嗎？</div>
+        </div>
+        <div class="qa-answer">
+          <ul class="qa-points">
+            <li>孟公說這沒有那麼嚴重，願意在家育嬰的爸爸本就難找，太太應該珍惜。</li>
+            <li>但也要考慮現實：收入、可能的第二胎，不能把自己抓得太緊。</li>
+            <li>學校這種東西，當下看喜歡不一定以後喜歡，不用太絕對。</li>
+          </ul>
+          <div class="qa-takeaway">願意育嬰的爸爸是寶，但現實面的收入與未來規劃也要考量，對學校選擇不必太絕對，可以先試試看。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  股癌 EP664 分析報告｜由 AssemblyAI 轉錄、Claude Code 分析生成｜僅供參考，不構成投資建議
+</footer>
+
+</body>
+</html>

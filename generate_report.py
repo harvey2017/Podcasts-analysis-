@@ -324,3 +324,16 @@ out = f"{base}/gooaye_660_665_report.html"
 with open(out, "w", encoding="utf-8") as f:
     f.write(html)
 print(f"Written: {out} ({len(html):,} bytes)")
+
+# Auto push to GitHub
+import subprocess, datetime
+os.chdir(base)
+ts = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+subprocess.run(["git", "add", "-A"], check=True)
+result = subprocess.run(["git", "diff", "--cached", "--quiet"])
+if result.returncode != 0:
+    subprocess.run(["git", "commit", "-m", f"update: 報告更新 {ts}"], check=True)
+    subprocess.run(["git", "push"], check=True)
+    print(f"✓ 已推送至 GitHub ({ts})")
+else:
+    print("(無變更，略過推送)")

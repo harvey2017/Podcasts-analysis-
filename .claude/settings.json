@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip3 install *)",
+      "Bash(yt-dlp --list-subs \"https://www.youtube.com/watch?v=ag-5hqHbqZo\")",
+      "WebFetch(domain:yasac.substack.com)",
+      "WebFetch(domain:whatmkreallysaid.com)",
+      "Bash(curl -s https://spoken.md/transcripts/1000769198043 -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')",
+      "Bash(curl -s https://spoken.md/search?q=Gooaye+EP664 -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')",
+      "Bash(curl -s \"https://spoken.md/.well-known/openapi.json\")",
+      "Bash(curl -s https://spoken.md/balance -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')",
+      "Bash(curl -s https://spoken.md/search?q=https://rss.soundon.fm/rssf/954689a5-3096-43a4-a80b-7810b219cef3/feedurl/7d6d137a-d8b8-40b4-ad00-a7426407c729/rssFileVip.mp3 -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')",
+      "Bash(curl -s https://spoken.md/search?q=https://podcasts.apple.com/tw/podcast/gooaye-%E8%82%A1%E7%99%8C/id1500839292?i=1000769198043 -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')",
+      "Bash(curl -sv https://spoken.md/transcripts/1000769198043 -H 'x-api-key: pt_29a7e3353386f744d4ebb115be567e4b')"
+    ]
+  }
+}
