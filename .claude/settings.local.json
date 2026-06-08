@@ -43,7 +43,8 @@
       "Bash(curl -sL \"https://anchor.fm/s/1ddc7e08/podcast/rss\")",
       "Bash(curl -sL \"https://feeds.soundon.fm/podcasts/954689a5-3096-43a4-8f15-a658ab14966b.xml\" -o /tmp/gooaye_rss.xml)",
       "Read(//tmp/**)",
-      "Bash(curl -sL \"https://feeds.soundon.fm/podcasts/954689a5-3096-43a4-a80b-7810b219cef3.xml\" -o /tmp/gooaye_rss.xml)"
+      "Bash(curl -sL \"https://feeds.soundon.fm/podcasts/954689a5-3096-43a4-a80b-7810b219cef3.xml\" -o /tmp/gooaye_rss.xml)",
+      "Bash(curl -s \"https://api.github.com/repos/harvey2017/Podcasts-analysis-/commits?per_page=5\")"
     ]
   }
 }
