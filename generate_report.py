@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json, os, re, datetime
 
-base = "/Users/linqian/Desktop/Gooaye podcasts"
+base = os.path.dirname(os.path.abspath(__file__))
 
 eps = {}
 for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669"]:
