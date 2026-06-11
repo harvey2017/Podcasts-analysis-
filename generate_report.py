@@ -4,7 +4,7 @@ import json, os, re, datetime
 base = "/Users/linqian/Desktop/Gooaye podcasts"
 
 eps = {}
-for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668"]:
+for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669"]:
     with open(f"{base}/{ep}_analysis.json", encoding="utf-8") as f:
         eps[ep] = json.load(f)
 
@@ -520,6 +520,7 @@ TAB_LABELS = [
     ("ep666","EP666 · 05/30"),
     ("ep667","EP667 · 06/03"),
     ("ep668","EP668 · 06/06"),
+    ("ep669","EP669 · 06/10"),
     ("trend","📊 整體趨勢"),
     ("stocks","📈 股價追蹤"),
 ]
