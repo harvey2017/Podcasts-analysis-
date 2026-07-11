@@ -43,6 +43,14 @@ TICKER_MAP = {
     "INTC": "INTC", "HPE": "HPE", "DELL": "DELL", "TSLA": "TSLA",
     "TXN": "TXN", "ON": "ON", "WDC": "WDC", "GFS": "GFS",
     "VPG": "VPG", "VSH": "VSH", "MRVL": "MRVL", "ADI": "ADI",
+    # EP668-678 新增
+    "2312.TW": "2312.TW", "2344.TW": "2344.TW", "2357.TW": "2357.TW",
+    "2449.TW": "2449.TW", "2881.TW": "2881.TW", "3443.TW": "3443.TW",
+    "6409.TW": "6409.TW", "3711.TW": "3711.TW",
+    "AAPL": "AAPL", "ADBE": "ADBE", "META": "META", "MU": "MU",
+    "NET": "NET", "PLTR": "PLTR", "STM": "STM", "IFNNY": "IFNNY",
+    "VIAV": "VIAV", "CRWV": "CRWV", "ASTS": "ASTS",
+    "RKLV": "RKLB", "RKLB": "RKLB",
 }
 
 TICKER_NAMES = {
@@ -60,6 +68,13 @@ TICKER_NAMES = {
     "TSLA": "Tesla", "TXN": "德儀", "ON": "安森美",
     "WDC": "Western Digital", "GFS": "GlobalFoundries",
     "VPG": "VPG", "VSH": "Vishay", "MRVL": "Marvell", "ADI": "ADI",
+    "2312.TW": "金寶", "2344.TW": "華邦電", "2357.TW": "華碩",
+    "2449.TW": "京元電子", "2881.TW": "富邦金", "3443.TW": "創意",
+    "6409.TW": "旭隼", "3711.TW": "日月光投控",
+    "AAPL": "Apple", "ADBE": "Adobe", "META": "Meta", "MU": "美光",
+    "NET": "Cloudflare", "PLTR": "Palantir", "STM": "意法半導體",
+    "IFNNY": "英飛凌", "VIAV": "Viavi", "CRWV": "CoreWeave",
+    "ASTS": "AST SpaceMobile", "RKLB": "Rocket Lab",
 }
 
 # Collect all mentioned tickers from all episodes
@@ -70,6 +85,8 @@ def collect_tickers():
         for stock in d.get("stockAnalysis", []):
             for raw_t in (stock.get("tickers") or []):
                 t = raw_t.strip()
+                if re.fullmatch(r"\d{4}", t):
+                    t = t + ".TW"
                 if t in TICKER_MAP:
                     yf_t = TICKER_MAP[t]
                     if yf_t not in seen:
@@ -305,7 +322,7 @@ def render_stock_tab():
 # ── trend HTML ────────────────────────────────────────────
 TREND_HTML = """
 <div class="section">
-  <div class="sec-title">🔥 被動元件超主題：七集演進時間軸</div>
+  <div class="sec-title">🔥 缺料漲價主軸：被動元件 → 功率元件 → 封測/導線架（EP660–EP678）</div>
   <div class="card">
     <div class="trend-timeline">
       <div class="trow"><span class="ep-tag">EP660</span><div class="ttext">全球被動元件同步噴發（日/美/台）；MLCC 排擠效應出現；AI 高規格 47μF 嚴重缺貨；孟公確認「不應該低估這個題材」。</div></div>
@@ -316,8 +333,16 @@ TREND_HTML = """
       <div class="trow"><span class="ep-tag">EP665</span><div class="ttext">國巨法說確認：特規品稼動率 90%、標準品 80%+、BBR Ratio 持續提升；孟公形容「整組做壞掉，射個滿臉完全看不懂」；每次假摔後又繼續噴出去。</div></div>
       <div class="trow"><span class="ep-tag">EP666</span><div class="ttext">鋁電容 20%+ 全球缺貨（江海備忘錄）；被動元件從「cost-driven」轉向「demand-driven」敘事；老 AI 全面復活（富士康/廣達漲停）；軟體股全面爆發（IGVETF 新高）。</div></div>
       <div class="trow"><span class="ep-tag">EP667</span><div class="ttext">被動元件族群開始橫盤整理，主持人認為是健康訊號；持倉均未破 14 日線；等待月線作為最終底線；TSMC 形態轉強、大型股補漲行情浮現。</div></div>
+      <div class="trow"><span class="ep-tag">EP670</span><div class="ttext">被動元件漲價全面確認：國巨目標價 237；電阻原估 6-7 輪漲價、現在只要 2 輪就達終值——漲價速度遠超原先預期。</div></div>
+      <div class="trow"><span class="ep-tag">EP671</span><div class="ttext">🔑 功率元件新機會首次登場：Nexperia 制裁事件觸發供應鏈重組，被動元件的劇本準備在功率元件重演一次。</div></div>
+      <div class="trow"><span class="ep-tag">EP672</span><div class="ttext">全球一線 IDM（Infineon/ON/STM/Rohm）AI 訂單強勁，Lead Time 拉到 9 週以上；採購開始驗證台廠——與當年日系鋁電容缺貨、台系受益的模式如出一轍。</div></div>
+      <div class="trow"><span class="ep-tag">EP673</span><div class="ttext">盤面拉回別驚慌；電阻確認是被動元件下一棒；國巨在修正中展現超強韌性。</div></div>
+      <div class="trow"><span class="ep-tag">EP675</span><div class="ttext">被動元件已到「射到宇宙」等級，7 月密集漲價通知將至；MOSFET 開始出現缺貨回報（ODM/EMS 端）；IC 設計轉強。</div></div>
+      <div class="trow"><span class="ep-tag">EP676</span><div class="ttext">MOSFET 全面確認缺貨（ODM/EMS 買不到、零庫存）；🔑 封測成為新主題：報價季增 30-40%（COVID 時僅 10-20%），AI 排擠效應發威。</div></div>
+      <div class="trow"><span class="ep-tag">EP677</span><div class="ttext">功率元件站上 5 日/10 日線最強勢；被動元件整理但守住季線；CCL/矽晶圓依然強勢；IC 設計全面轉強。</div></div>
+      <div class="trow"><span class="ep-tag">EP678</span><div class="ttext">ADI 發出漲價訊號＝功率元件全面漲價確認；🔑 導線架交期 3-4 個月拉到 7-8 個月、漲 10-20%，成為新的供應鏈瓶頸；封測廠獲利大幅跳升（漲價＋稼動率拉滿）。</div></div>
     </div>
-    <div class="trend-conclusion">結論：被動元件是七集中唯一持續加速的核心主題，從外圍訊號→漲價確認→斷供確認→全線漲停→法說驗證→轉入整理期，每集都有新的里程碑。孟公持倉全程持有，EP667 已進入「守成」階段。</div>
+    <div class="trend-conclusion">結論：缺料漲價主軸持續擴散升級——被動元件（EP660-670 漲價確認）→ 功率元件（EP671 登場、EP678 ADI 訊號全面確認）→ 封測（EP676 登場、30-40% 漲價）→ 導線架（EP678 新瓶頸）。孟公被動元件＋功率元件全程持有，「成本低就抱著」，每一棒都在前一棒確認後提前佈局下一棒。</div>
   </div>
 </div>
 
@@ -333,26 +358,35 @@ TREND_HTML = """
       <div class="trow"><span class="ep-tag">EP665</span><div class="ttext">機器人族群與載板繼續強勢；SpaceX IPO 成為下一個資金目標；衛星相關已出脫（賺到魚頭），計劃買進 SpaceX 並降低 Tesla。</div></div>
       <div class="trow"><span class="ep-tag">EP666</span><div class="ttext">老 AI 全面復活（鴻海/廣達漲停，陳泰銘成首富）；軟體股全爆（IGVETF 新高，Salesforce 回購，Okta/Snowflake 超預期）；AI 末日論自打臉（Dario/Sam 轉向）。</div></div>
       <div class="trow"><span class="ep-tag">EP667</span><div class="ttext">Computex 2026：黃仁勳點名 Marvell 兆元企業→MRVL 噴出；NVIDIA DJX Spark AIPC 第二波；光通訊再成共識；TSMC/NVIDIA 大型股補漲行情浮現。</div></div>
+      <div class="trow"><span class="ep-tag">EP668</span><div class="ttext">主持人親身參觀 Computex 2026，近兩三年最喜歡的一屆；一般民眾進展會、追星黃仁勳被視為「全民參與市場」的正面訊號。</div></div>
+      <div class="trow"><span class="ep-tag">EP670</span><div class="ttext">SpaceX 正式上市，主持人 IPO 申購成功＋二級市場約 160 美元加碼；衛星概念股（RKLB/ASTS 等）全數出清——「本尊上市，替代品退場」。</div></div>
+      <div class="trow"><span class="ep-tag">EP672</span><div class="ttext">台股歷史新高確認，驗證上集「修正結束」預判；提醒確認偏誤：別用自己的持股漲跌判斷大盤方向。</div></div>
+      <div class="trow"><span class="ep-tag">EP674</span><div class="ttext">2026 上半年總結：績效歷史新高。路徑：Q1 衛星→窄版→玻璃基板；Q2 被動元件為主軸；蘋果漲價事件。</div></div>
+      <div class="trow"><span class="ep-tag">EP675</span><div class="ttext">6/30 收官日；再平衡賣壓結束；自我檢討：修正期間換倉過多，「動作太多」是上半年最大的操作缺點。</div></div>
+      <div class="trow"><span class="ep-tag">EP677</span><div class="ttext">新世代槓桿文化衝擊：信用＋質押＋股期＋滾 = 5-6 倍槓桿 vs 主持人上限 2.5 倍；韓式槓桿去化造成台股中小型股股期跌停、現貨僅跌 3-5% 的異常波動。</div></div>
+      <div class="trow"><span class="ep-tag">EP678</span><div class="ttext">颱風假閉市但「散漲」：富台 +3%；NVIDIA 重回 210 站上季線；Meta 確認 doubledown AI；光通內部輪動：NarrowFast（矽光/GaAs）被賣、WideandSlow（VCSEL）被買。</div></div>
     </div>
-    <div class="trend-conclusion">結論：孟公操作邏輯持續演進。EP667 出現重要訊號：小標股輪動趨緩，大型龍頭（TSMC、NVIDIA）補漲行情開始醞釀，被動元件進入整理，資金尋找新方向。Computex 是本波資金的重要觸媒。</div>
+    <div class="trend-conclusion">結論：EP660-667 是被動元件行情的主升段；EP668-674 資金轉向 SpaceX 上市與功率元件，台股創高後上半年以歷史新高績效收官；EP675-678 進入槓桿去化的震盪期，主持人質押被鎖反而「被迫冷靜」，功率元件/封測接棒成為最強主線，等待 TSMC 法說與大盤新高開啟下一波。</div>
   </div>
 </div>
 
 <div class="section">
-  <div class="sec-title">🚀 新主題：SpaceX IPO ＆ 光通訊再成焦點</div>
+  <div class="sec-title">🚀 主題追蹤：SpaceX / 光通訊 / 功率元件 / 機器人 / Edge AI</div>
   <div class="card">
     <div class="trend-timeline">
-      <div class="trow"><span class="ep-tag">SpaceX</span><div class="ttext">EP665 首次登場，Starlink 印鈔機＋軌道 AI DataCenter 框架；EP667 Q&A 提及 SpaceX 上市時再平衡操作需求。</div></div>
-      <div class="trow"><span class="ep-tag">光通訊</span><div class="ttext">EP664 確認 NVIDIA 光通訊包場；EP667 Computex Marvell+NVIDIA 雙重背書，plugable→CPO→跨 DataCenter 全佈局成產業共識。</div></div>
-      <div class="trow"><span class="ep-tag">功率半導體</span><div class="ttext">EP667 新出現：ON/ADI 基本面改善，若電源設備大量拉貨有機會產生戴維斯雙擊，主持人視為「下一波潛力題材」。</div></div>
-      <div class="trow"><span class="ep-tag">AIPC</span><div class="ttext">EP667 DJX Spark 第二次挑戰：若 AIPC 銷量成長，帶動高 ASP 材料需求，可抵消傳統筆電/手機銷售疲軟。</div></div>
+      <div class="trow"><span class="ep-tag">SpaceX</span><div class="ttext">EP665 首次登場（Starlink 印鈔機＋軌道 AI DataCenter）→ EP670 正式上市，主持人 IPO 申購＋二級市場 160 美元加碼，衛星概念股全數出清 → EP677 「巴菲特一生財富 = SpaceX 一天的波動」。長期核心持倉。</div></div>
+      <div class="trow"><span class="ep-tag">功率元件</span><div class="ttext">EP667 潛力題材 → EP671 正式登場（Nexperia 制裁）→ EP672 IDM Lead Time 9週+ → EP675-676 MOSFET 缺貨確認 → EP678 ADI 漲價訊號＝全面漲價。已成為最強主線，主持人持有。</div></div>
+      <div class="trow"><span class="ep-tag">封測/導線架</span><div class="ttext">EP676 封測登場（30-40% 漲價、AI 排擠效應、IDM 自有封測廠最優）→ EP678 導線架交期 7-8 個月成新瓶頸，「有封裝產能但沒導線架」的斷鏈風險浮現。</div></div>
+      <div class="trow"><span class="ep-tag">光通訊</span><div class="ttext">EP664 NVIDIA 包場確認 → EP667 Computex 共識 → EP676 依然「沒有資金」 → EP678 內部輪動：NarrowFast（矽光/GaAs 雷射）被賣、WideandSlow（VCSEL）被買，銅相關（先前被誤殺）創新高。主持人未配置，等大盤新高。</div></div>
+      <div class="trow"><span class="ep-tag">機器人</span><div class="ttext">EP672 主持人透露已佈局日系減速機股票，視為機器人題材的早期切入點：從確定受益的核心零組件切入，而非押注整機廠。</div></div>
+      <div class="trow"><span class="ep-tag">Edge AI</span><div class="ttext">EP670 提出框架：前沿模型能力約一年後下放到端側，Edge AI 是 AI 行情的下一個一年期主題；聯發科 Triggerfish（EP673）是具體事件。</div></div>
     </div>
-    <div class="trend-conclusion">EP667 是本輪的重要轉折點：被動元件進入守成整理，市場開始尋找新方向。光通訊（Marvell 加持）、功率半導體、AIPC 是三個潛在接力題材。</div>
+    <div class="trend-conclusion">截至 EP678：功率元件＋封測是當前最強主線（基本面與股價同步確認）；SpaceX 是長期信仰持倉；光通訊在等待大盤新高的資金行情；機器人與 Edge AI 是提前佈局的下一年度主題。</div>
   </div>
 </div>
 
 <div class="section">
-  <div class="sec-title">📈 市場情緒弧線（七集）</div>
+  <div class="sec-title">📈 市場情緒弧線（EP660–EP678）</div>
   <div class="arc-grid">
     <div class="arc-card"><div class="arc-ep">EP660</div><div class="arc-mood" style="color:#fbd38d;">謹慎/尖末期</div><div class="arc-date">2026-05-09</div><div class="arc-desc">進入尖末期模式，拒絕朋友問股</div></div>
     <div class="arc-card"><div class="arc-ep">EP661</div><div class="arc-mood" style="color:#9ae6b4;">高低配樂觀</div><div class="arc-date">2026-05-13</div><div class="arc-desc">台中旅遊，紅酒入坑，策略清晰</div></div>
@@ -362,31 +396,44 @@ TREND_HTML = """
     <div class="arc-card"><div class="arc-ep">EP665</div><div class="arc-mood" style="color:#90cdf4;">整組做壞掉</div><div class="arc-date">2026-05-27</div><div class="arc-desc">諾亞絕對音感，SpaceX 新主題登場</div></div>
     <div class="arc-card"><div class="arc-ep">EP666</div><div class="arc-mood" style="color:#9ae6b4;">老AI全面復活</div><div class="arc-date">2026-05-30</div><div class="arc-desc">軟體股爆發，90%持倉處置股</div></div>
     <div class="arc-card"><div class="arc-ep">EP667</div><div class="arc-mood" style="color:#fbd38d;">整理/守成</div><div class="arc-date">2026-06-03</div><div class="arc-desc">Computex，被動元件整理，大型股補漲</div></div>
+    <div class="arc-card"><div class="arc-ep">EP668</div><div class="arc-mood" style="color:#9ae6b4;">樂觀/參展</div><div class="arc-date">2026-06-06</div><div class="arc-desc">Computex 親身參觀，近三年最愛的一屆</div></div>
+    <div class="arc-card"><div class="arc-ep">EP669</div><div class="arc-mood" style="color:#9ae6b4;">感恩/34歲</div><div class="arc-date">2026-06-10</div><div class="arc-desc">生日，驗血紅字全消，身體素質提升</div></div>
+    <div class="arc-card"><div class="arc-ep">EP670</div><div class="arc-mood" style="color:#90cdf4;">收割/轉進</div><div class="arc-date">2026-06-13</div><div class="arc-desc">SpaceX 上市買進，衛星股全數出清</div></div>
+    <div class="arc-card"><div class="arc-ep">EP671</div><div class="arc-mood" style="color:#fbd38d;">尋找下一棒</div><div class="arc-date">2026-06-17</div><div class="arc-desc">功率元件登場，冒名詐騙警告</div></div>
+    <div class="arc-card"><div class="arc-ep">EP672</div><div class="arc-mood" style="color:#9ae6b4;">新高確認</div><div class="arc-date">2026-06-20</div><div class="arc-desc">台股歷史新高，IDM 深度解析</div></div>
+    <div class="arc-card"><div class="arc-ep">EP673</div><div class="arc-mood" style="color:#fbd38d;">拉回不驚慌</div><div class="arc-date">2026-06-24</div><div class="arc-desc">電阻下一棒，聯發科 Triggerfish</div></div>
+    <div class="arc-card"><div class="arc-ep">EP674</div><div class="arc-mood" style="color:#9ae6b4;">人生高光</div><div class="arc-date">2026-06-27</div><div class="arc-desc">上半年績效歷史新高，蘋果漲價</div></div>
+    <div class="arc-card"><div class="arc-ep">EP675</div><div class="arc-mood" style="color:#fbd38d;">自我檢討</div><div class="arc-date">2026-07-01</div><div class="arc-desc">收官日，換倉過多反省，MOSFET 缺貨</div></div>
+    <div class="arc-card"><div class="arc-ep">EP676</div><div class="arc-mood" style="color:#9ae6b4;">新主題發酵</div><div class="arc-date">2026-07-04</div><div class="arc-desc">封測 30-40% 漲價，Meta doubledown</div></div>
+    <div class="arc-card"><div class="arc-ep">EP677</div><div class="arc-mood" style="color:#90cdf4;">被迫冷靜</div><div class="arc-date">2026-07-08</div><div class="arc-desc">槓桿去化震盪，質押被鎖反而平靜</div></div>
+    <div class="arc-card"><div class="arc-ep">EP678</div><div class="arc-mood" style="color:#9ae6b4;">蓄勢待發</div><div class="arc-date">2026-07-11</div><div class="arc-desc">颱風假散漲，NVIDIA 重回 210，導線架瓶頸</div></div>
   </div>
 </div>
 
 <div class="section">
-  <div class="sec-title">📊 跨集個股出現次數與情緒矩陣</div>
+  <div class="sec-title">📊 主題/標的情緒矩陣（按時期，EP660–EP678）</div>
   <div class="card" style="overflow-x:auto;">
     <table class="matrix-table">
-      <tr><th>標的/族群</th><th>EP660</th><th>EP661</th><th>EP662</th><th>EP663</th><th>EP664</th><th>EP665</th><th>EP666</th><th>EP667</th><th>孟公持有</th></tr>
-      <tr><td>被動元件族群</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-watch">觀望</td><td class="m-own">✓</td></tr>
-      <tr><td>台積電</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-na">—</td></tr>
-      <tr><td>聯發科</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-watch">AIPC</td><td class="m-own">✓</td></tr>
-      <tr><td>NVIDIA</td><td class="m-bull">看多</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-watch">觀望</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">補漲</td><td class="m-na">—</td></tr>
-      <tr><td>Marvell</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-own">✓</td></tr>
-      <tr><td>光通訊族群</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">確認</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">共識</td><td class="m-na">—</td></tr>
-      <tr><td>載板族群</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-own">✓</td></tr>
-      <tr><td>SpaceX</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-na">—</td><td class="m-watch">再平衡</td><td class="m-na">計劃</td></tr>
-      <tr><td>功率半導體</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-watch">潛力</td><td class="m-na">—</td></tr>
-      <tr><td>軟體/SaaS</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-watch">Snowflake</td><td class="m-na">—</td></tr>
-      <tr><td>Tesla</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-neu">中立</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-own">降低</td></tr>
+      <tr><th>標的/族群</th><th>5月上<br>(660-662)</th><th>5月下<br>(663-666)</th><th>6月上<br>(667-670)</th><th>6月下<br>(671-674)</th><th>7月上<br>(675-678)</th><th>孟公持有</th></tr>
+      <tr><td>被動元件族群</td><td class="m-bull">看多</td><td class="m-bull">全線噴發</td><td class="m-bull">漲價確認</td><td class="m-bull">電阻接棒</td><td class="m-bull">射到宇宙</td><td class="m-own">✓</td></tr>
+      <tr><td>功率元件/IDM</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-watch">潛力</td><td class="m-bull">登場/缺貨</td><td class="m-bull">全面漲價</td><td class="m-own">✓</td></tr>
+      <tr><td>封測/導線架</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">30-40%漲價</td><td class="m-na">—</td></tr>
+      <tr><td>SpaceX</td><td class="m-na">—</td><td class="m-bull">登場</td><td class="m-bull">上市買進</td><td class="m-bull">持有</td><td class="m-bull">持有</td><td class="m-own">✓</td></tr>
+      <tr><td>衛星概念股</td><td class="m-na">—</td><td class="m-watch">魚頭出場</td><td class="m-neu">全數出清</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">已出清</td></tr>
+      <tr><td>NVIDIA</td><td class="m-bull">看多</td><td class="m-watch">觀望</td><td class="m-bull">補漲</td><td class="m-na">—</td><td class="m-bull">重回210</td><td class="m-own">✓</td></tr>
+      <tr><td>台積電</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-watch">法說前</td><td class="m-na">—</td></tr>
+      <tr><td>光通訊族群</td><td class="m-na">—</td><td class="m-bull">NVIDIA包場</td><td class="m-bull">共識</td><td class="m-na">—</td><td class="m-watch">內部輪動</td><td class="m-na">未配置</td></tr>
+      <tr><td>記憶體</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">看多</td><td class="m-bull">看多</td><td class="m-watch">已出場</td><td class="m-na">已出場</td></tr>
+      <tr><td>機器人/減速機</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">日系佈局</td><td class="m-na">—</td><td class="m-own">✓</td></tr>
+      <tr><td>IC設計</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-watch">Triggerfish</td><td class="m-bull">全面轉強</td><td class="m-na">—</td></tr>
+      <tr><td>Meta</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-bull">doubledown</td><td class="m-na">—</td></tr>
+      <tr><td>Tesla</td><td class="m-na">—</td><td class="m-neu">中立</td><td class="m-na">—</td><td class="m-na">—</td><td class="m-neu">信仰持股</td><td class="m-own">✓</td></tr>
     </table>
   </div>
 </div>
 
 <div class="section">
-  <div class="sec-title">🏃 孟公個人旅程（七集側記）</div>
+  <div class="sec-title">🏃 孟公個人旅程（EP660–EP678 側記）</div>
   <div class="card">
     <div class="trend-timeline">
       <div class="trow"><span class="ep-tag">EP660</span><div class="ttext">ZZSleeper 枕頭使用心得；進入「尖末期」模式，拒絕幫朋友推薦個股。</div></div>
@@ -397,6 +444,17 @@ TREND_HTML = """
       <div class="trow"><span class="ep-tag">EP665</span><div class="ttext">夏天打網球差點昏倒，教練制止；🎵 諾亞（大兒子）聽出所有寶可夢音效，孟公推測是絕對音感遺傳，決定重金聘請鋼琴老師。</div></div>
       <div class="trow"><span class="ep-tag">EP666</span><div class="ttext">植村秀品牌贊助；持續「慢下來」哲學（內觀、坐姿調整改善下背痛）；90% 持倉在處置股中。</div></div>
       <div class="trow"><span class="ep-tag">EP667</span><div class="ttext">持續「慢下來運動」（深呼吸訓練、日常動作刻意放慢）；自費參加佳佩樂飯店品酒會，學習味覺語言，見識大哥當場開百萬特級元酒；被邀為「50碗」美食評鑑列名單。</div></div>
+      <div class="trow"><span class="ep-tag">EP668</span><div class="ttext">親身參觀 Computex 2026，近兩三年最喜歡的一屆；對「死老百姓進展會、追星黃仁勳」的批評持正面看法。</div></div>
+      <div class="trow"><span class="ep-tag">EP669</span><div class="ttext">🎂 34 歲生日：驗血報告紅字全消、身體素質持續提升；收到金色皮卡丘雕像、網球拍等禮物。</div></div>
+      <div class="trow"><span class="ep-tag">EP670</span><div class="ttext">瘦肉素多支注射筆殘量混打＋最粗針頭的虛驚一場；體悟「任何工具都應該先讀說明書」。</div></div>
+      <div class="trow"><span class="ep-tag">EP671</span><div class="ttext">警告網路有人冒充他推薦股票；林口店面觀察：房產成交量跌但屋主不降價；規劃引進餐飲業者。</div></div>
+      <div class="trow"><span class="ep-tag">EP672</span><div class="ttext">岳母來台探訪；林口小生意持續篩選合夥人；二十樓陽台出現一隻蟬，視為吉兆。</div></div>
+      <div class="trow"><span class="ep-tag">EP673</span><div class="ttext">全聯紅酒探索：阿根廷 Malbec、法國 Syrah、西班牙 Tempranillo、Bourgogne Chardonnay、紐西蘭 Sauvignon Blanc；口味偏好勃根地。</div></div>
+      <div class="trow"><span class="ep-tag">EP674</span><div class="ttext">上半年總結：「人生的高光時刻」——減重針有效無副作用、體能提升、孩子健康問題陸續排除、績效歷史新高。</div></div>
+      <div class="trow"><span class="ep-tag">EP675</span><div class="ttext">笑男資本股東會；自家貝果遊戲 RedEye Ruby 預計 7 月下旬上 Steam。</div></div>
+      <div class="trow"><span class="ep-tag">EP676</span><div class="ttext">宜蘭凱渡飯店親子行（意外的好體驗，KidsClub＋江振誠 Fine Dining）；育兒感悟「一天太長，一年太短」。</div></div>
+      <div class="trow"><span class="ep-tag">EP677</span><div class="ttext">觀察新世代「四代同堂」槓桿文化（5-6 倍）大受衝擊；自己質押 4 月起被鎖無法加碼，反而意外平靜。</div></div>
+      <div class="trow"><span class="ep-tag">EP678</span><div class="ttext">💪 血壓從 140/89 降到約 110/70、心跳變慢，運動效果遠超預期；颱風假心境轉變：從討厭放假到覺得「多開盤未必是好事」。</div></div>
     </div>
   </div>
 </div>
@@ -409,12 +467,21 @@ body { background: #0f1117; color: #e2e8f0; font-family: -apple-system, BlinkMac
 .site-header { background: linear-gradient(135deg,#1a1f2e 0%,#16213e 100%); border-bottom: 1px solid #2d3748; padding: 24px 20px; text-align: center; }
 .site-header h1 { font-size: 1.75rem; font-weight: 700; color: #90cdf4; }
 .site-header p { color: #718096; margin-top: 6px; font-size: 0.88rem; }
-.tab-nav { background: #1a202c; border-bottom: 1px solid #2d3748; display: flex; overflow-x: auto; padding: 0 16px; position: sticky; top: 0; z-index: 100; }
-.tab-nav::-webkit-scrollbar { height: 3px; }
+.layout { display: flex; align-items: flex-start; }
+.tab-nav { background: #1a202c; border-right: 1px solid #2d3748; display: flex; flex-direction: column; width: 185px; flex-shrink: 0; position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 12px 0; z-index: 100; }
+.tab-nav::-webkit-scrollbar { width: 3px; }
 .tab-nav::-webkit-scrollbar-thumb { background: #4299e1; }
-.tab-btn { background: none; border: none; border-bottom: 3px solid transparent; color: #718096; cursor: pointer; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; padding: 14px 16px; white-space: nowrap; transition: color .2s, border-color .2s; }
+.tab-btn { background: none; border: none; border-left: 3px solid transparent; color: #718096; cursor: pointer; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; padding: 11px 18px; text-align: left; white-space: nowrap; transition: color .2s, border-color .2s, background .2s; }
 .tab-btn:hover { color: #90cdf4; }
-.tab-btn.active { color: #90cdf4; border-bottom-color: #4299e1; }
+.tab-btn.active { color: #90cdf4; border-left-color: #4299e1; background: #212a3a; }
+.main-area { flex: 1; min-width: 0; }
+@media (max-width: 900px) {
+  .layout { display: block; }
+  .tab-nav { flex-direction: row; width: 100%; height: auto; overflow-x: auto; overflow-y: hidden; border-right: none; border-bottom: 1px solid #2d3748; padding: 0 12px; }
+  .tab-nav::-webkit-scrollbar { height: 3px; width: auto; }
+  .tab-btn { border-left: none; border-bottom: 3px solid transparent; padding: 13px 14px; }
+  .tab-btn.active { border-left-color: transparent; border-bottom-color: #4299e1; background: none; }
+}
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 .container { max-width: 960px; margin: 0 auto; padding: 28px 18px; }
@@ -562,10 +629,14 @@ html = f"""<!DOCTYPE html>
   <h1>股癌 Gooaye Podcast 分析報告</h1>
   <p>EP660 – EP678 &nbsp;·&nbsp; 2026年5-7月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
 </header>
+<div class="layout">
 <nav class="tab-nav">{tab_nav}</nav>
+<main class="main-area">
 {ep_contents}
 {trend_content}
 {stocks_content}
+</main>
+</div>
 <script>{JS}</script>
 </body>
 </html>"""
