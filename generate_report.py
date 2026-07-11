@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 import json, os, re, datetime
 
-base = os.path.dirname(os.path.abspath(__file__))
+base = "/Users/linqian/Desktop/Gooaye podcasts"
 
 eps = {}
-for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669"]:
+for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669",
+           "ep670","ep671","ep672","ep673","ep674","ep675","ep676","ep677","ep678"]:
     with open(f"{base}/{ep}_analysis.json", encoding="utf-8") as f:
         eps[ep] = json.load(f)
 
@@ -521,6 +522,15 @@ TAB_LABELS = [
     ("ep667","EP667 · 06/03"),
     ("ep668","EP668 · 06/06"),
     ("ep669","EP669 · 06/10"),
+    ("ep670","EP670 · 06/13"),
+    ("ep671","EP671 · 06/17"),
+    ("ep672","EP672 · 06/20"),
+    ("ep673","EP673 · 06/24"),
+    ("ep674","EP674 · 06/27"),
+    ("ep675","EP675 · 07/01"),
+    ("ep676","EP676 · 07/04"),
+    ("ep677","EP677 · 07/08"),
+    ("ep678","EP678 · 07/11"),
     ("trend","📊 整體趨勢"),
     ("stocks","📈 股價追蹤"),
 ]
@@ -544,13 +554,13 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>股癌 EP660–EP667 分析報告</title>
+<title>股癌 EP660–EP678 分析報告</title>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site-header">
   <h1>股癌 Gooaye Podcast 分析報告</h1>
-  <p>EP660 – EP667 &nbsp;·&nbsp; 2026年5-6月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
+  <p>EP660 – EP678 &nbsp;·&nbsp; 2026年5-7月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
 </header>
 <nav class="tab-nav">{tab_nav}</nav>
 {ep_contents}
