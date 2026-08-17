@@ -5,7 +5,8 @@ base = "/Users/linqian/Desktop/Gooaye podcasts"
 
 eps = {}
 for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669",
-           "ep670","ep671","ep672","ep673","ep674","ep675","ep676","ep677","ep678"]:
+           "ep670","ep671","ep672","ep673","ep674","ep675","ep676","ep677","ep678",
+           "ep679","ep680","ep681","ep682","ep683","ep684","ep685","ep686","ep687","ep688"]:
     with open(f"{base}/{ep}_analysis.json", encoding="utf-8") as f:
         eps[ep] = json.load(f)
 
@@ -206,9 +207,9 @@ def render_ep(ep):
         disc_html += (
             f'<div class="card">'
             f'<span class="badge {ac}">{esc(disc["action"])}</span>'
-            f'<div class="disc-asset">{esc(disc.get("asset", disc.get("stocks", "")))}</div>'
+            f'<div class="disc-asset">{esc(disc.get("asset", disc.get("stock", disc.get("stocks", ""))))}</div>'
             f'<div class="blockquote-purple">「{esc(disc["quote"])}」</div>'
-            f'<div class="disc-status">📌 {esc(disc.get("status", disc.get("detail", "")))}</div>'
+            f'<div class="disc-status">📌 {esc(disc.get("status", disc.get("detail", disc.get("action", ""))))}</div>'
             f'</div>'
         )
     parts.append(f'<div class="section"><div class="sec-title">⭐ 主持人持倉揭露（{len(d["hostDisclosure"])} 則）</div>{disc_html}</div>')
@@ -598,6 +599,16 @@ TAB_LABELS = [
     ("ep676","EP676 · 07/04"),
     ("ep677","EP677 · 07/08"),
     ("ep678","EP678 · 07/11"),
+    ("ep679","EP679 · 07/15"),
+    ("ep680","EP680 · 07/18"),
+    ("ep681","EP681 · 07/22"),
+    ("ep682","EP682 · 07/25"),
+    ("ep683","EP683 · 07/29"),
+    ("ep684","EP684 · 08/01"),
+    ("ep685","EP685 · 08/05"),
+    ("ep686","EP686 · 08/08"),
+    ("ep687","EP687 · 08/12"),
+    ("ep688","EP688 · 08/15"),
     ("trend","📊 整體趨勢"),
     ("stocks","📈 股價追蹤"),
 ]
