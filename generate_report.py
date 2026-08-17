@@ -632,13 +632,13 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>股癌 EP660–EP678 分析報告</title>
+<title>股癌 EP660–EP688 分析報告</title>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site-header">
   <h1>股癌 Gooaye Podcast 分析報告</h1>
-  <p>EP660 – EP678 &nbsp;·&nbsp; 2026年5-7月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
+  <p>EP660 – EP688 &nbsp;·&nbsp; 2026年5-8月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
 </header>
 <div class="layout">
 <nav class="tab-nav">{tab_nav}</nav>
