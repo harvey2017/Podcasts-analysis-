@@ -6,7 +6,8 @@ base = "/Users/linqian/Desktop/Gooaye podcasts"
 eps = {}
 for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep668","ep669",
            "ep670","ep671","ep672","ep673","ep674","ep675","ep676","ep677","ep678",
-           "ep679","ep680","ep681","ep682","ep683","ep684","ep685","ep686","ep687","ep688"]:
+           "ep679","ep680","ep681","ep682","ep683","ep684","ep685","ep686","ep687","ep688",
+           "ep689","ep690","ep691","ep692","ep693","ep694"]:
     with open(f"{base}/{ep}_analysis.json", encoding="utf-8") as f:
         eps[ep] = json.load(f)
 
@@ -609,6 +610,12 @@ TAB_LABELS = [
     ("ep686","EP686 · 08/08"),
     ("ep687","EP687 · 08/12"),
     ("ep688","EP688 · 08/15"),
+    ("ep689","EP689 · 08/19"),
+    ("ep690","EP690 · 08/22"),
+    ("ep691","EP691 · 08/26"),
+    ("ep692","EP692 · 08/29"),
+    ("ep693","EP693 · 09/02"),
+    ("ep694","EP694 · 09/05"),
     ("trend","📊 整體趨勢"),
     ("stocks","📈 股價追蹤"),
 ]
@@ -632,13 +639,13 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>股癌 EP660–EP688 分析報告</title>
+<title>股癌 EP660–EP694 分析報告</title>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site-header">
   <h1>股癌 Gooaye Podcast 分析報告</h1>
-  <p>EP660 – EP688 &nbsp;·&nbsp; 2026年5-8月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
+  <p>EP660 – EP694 &nbsp;·&nbsp; 2026年5-9月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
 </header>
 <div class="layout">
 <nav class="tab-nav">{tab_nav}</nav>
