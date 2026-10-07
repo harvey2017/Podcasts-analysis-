@@ -8,7 +8,7 @@ for ep in ["ep660","ep661","ep662","ep663","ep664","ep665","ep666","ep667","ep66
            "ep670","ep671","ep672","ep673","ep674","ep675","ep676","ep677","ep678",
            "ep679","ep680","ep681","ep682","ep683","ep684","ep685","ep686","ep687","ep688",
            "ep689","ep690","ep691","ep692","ep693","ep694","ep695","ep696","ep697","ep698",
-           "ep699","ep700","ep701","ep702"]:
+           "ep699","ep700","ep701","ep702","ep703"]:
     with open(f"{base}/{ep}_analysis.json", encoding="utf-8") as f:
         eps[ep] = json.load(f)
 
@@ -629,6 +629,7 @@ TAB_LABELS = [
     ("ep700","EP700 · 09/26"),
     ("ep701","EP701 · 09/30"),
     ("ep702","EP702 · 10/03"),
+    ("ep703","EP703 · 10/07"),
     ("trend","📊 整體趨勢"),
     ("stocks","📈 股價追蹤"),
 ]
@@ -652,13 +653,13 @@ html = f"""<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>股癌 EP660–EP702 分析報告</title>
+<title>股癌 EP660–EP703 分析報告</title>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="site-header">
   <h1>股癌 Gooaye Podcast 分析報告</h1>
-  <p>EP660 – EP702 &nbsp;·&nbsp; 2026年5-10月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
+  <p>EP660 – EP703 &nbsp;·&nbsp; 2026年5-10月 &nbsp;·&nbsp; 主持人：謝孟恭</p>
 </header>
 <div class="layout">
 <nav class="tab-nav">{tab_nav}</nav>
